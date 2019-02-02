@@ -1,22 +1,14 @@
 {% extends "base.html" %}
+
 {% block content %}
-<header class=" text-center text-white" style=" background: transparent;">
 
- 
-    <div class="container-responsive">
-      <h1 >All the messages,</h1>
-      <h2 >You ever got...</h2>
-      
-      <br>
-      {% if request.user.is_anonymous %}
-        <a href="{% url 'signup' %}" class="btn btn-primary btn-xl rounded-pill mt-5">Sign up to read your messages!</a>
-      {% else %}
-        <a href="{% url 'messages' %}" class="btn btn-primary btn-xl rounded-pill mt-5">Read messages!</a>
-      {% endif %}
 
-    </div>
-</header>
-
+<!-- Begin page content -->
+<main role="main" class="container">
+  <h1 class="mt-5">Sticky footer with fixed navbar</h1>
+  <p class="lead">Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS. A fixed navbar has been added with <code>padding-top: 60px;</code> on the <code>body &gt; .container</code>.</p>
+  <p>Back to <a href="../sticky-footer">the default sticky footer</a> minus the navbar.</p>
+</main>
 
 
 {% endblock %}
