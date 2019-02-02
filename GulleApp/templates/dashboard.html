@@ -26,10 +26,16 @@
   <tbody>
 		{% for message in user.message_set.all %}
     <tr>
-      <td>{{message.title}}</td>
-      <td>{{message.content}}</td>
-			<td>	<a class="btn btn-light" onclick="like_message({{message.id}})" id="#message-{{message.id}}" ><i class="fas fa-heart"></i></button></td>
-			<td> <a class="btn btn-light"> <i class="fas fa-trash-alt"></i></a></td>
+      	<td>{{message.title}}</td>
+      	<td>{{message.content}}</td>
+		<td>
+			<button class="btn btn-light" onclick="like_message({{message.id}})" >
+				<div class="{% if message.id in liked_messages %}text-danger{% endif %}" id="message-{{message.id}}">
+					<i class="fas fa-heart" ></i>
+				</div>
+			</button>
+		</td>
+		<td> <a class="btn btn-light" href="{% url 'message-delete' message.id %}"> <i class="fas fa-trash-alt"></i></a></a></td>
     </tr>
 		{% endfor %}
 
@@ -39,18 +45,17 @@
 
 
 <script type="text/javascript">
-
 	function like_message(id){
 		$.ajax(
 			{
 				type: 'GET',
-				url: '/message/'+id+'/like/'
+				url: '/message/'+id+'/like/',
 				error: function(){
 					console.log('error')
 				},
 				success: function(data){
 					let message_id = '#message-' + id;
-					if (data.action ==="like"){
+					if (data.action === "like"){
 						$(message_id).addClass("text-danger")
 					}else{
 						$(message_id).removeClass("text-danger")
@@ -58,8 +63,9 @@
 				}
 
 			}
-		)
+		);
 	}
+
 </script>
 
 {% endblock %}

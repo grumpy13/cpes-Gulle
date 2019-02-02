@@ -13,14 +13,21 @@ from django.http import JsonResponse
 # 	return render(request, 'home.html')
 
 class Signup(View):
+
 	form_class = UserSignup
 	template_name = 'signup.html'
 
 	def get(self, request, *args, **kwargs):
+		if request.user.is_authenticated:
+			return redirect("dashboard")
+
 		form = self.form_class()
 		return render(request, self.template_name, {'form': form})
 
 	def post(self, request, *args, **kwargs):
+		if request.user.is_authenticated:
+			return redirect("dashboard")
+
 		form = self.form_class(request.POST)
 		if form.is_valid():
 			user = form.save(commit=False)
@@ -34,14 +41,20 @@ class Signup(View):
 
 
 class Login(View):
+
 	form_class = UserLogin
 	template_name = 'login.html'
 
 	def get(self, request, *args, **kwargs):
+		if request.user.is_authenticated:
+			return redirect("dashboard")
 		form = self.form_class()
 		return render(request, self.template_name, {'form': form})
 
 	def post(self, request, *args, **kwargs):
+		if request.user.is_authenticated:
+			return redirect("dashboard")
+			
 		form = self.form_class(request.POST)
 		if form.is_valid():
 
@@ -72,6 +85,7 @@ def no_access(request):
 
 
 def profile(request, user_id):
+
 	user = User.objects.get(id=user_id)
 	messages = Message.objects.filter(teacher= user)
 	context = {
@@ -83,6 +97,9 @@ def profile(request, user_id):
 
 
 def professors_list(request):
+	if request.user.is_authenticated:
+		return redirect("dashboard")
+
 	professors = User.objects.all()
 
 	if request.GET.get('q'):
@@ -97,6 +114,9 @@ def professors_list(request):
 	return render(request, 'home.html', context)
 
 def message_professor(request, professor_id):
+	if request.user.is_authenticated:
+		return redirect("dashboard")
+
 	professor = User.objects.get(id=professor_id)
 	form = MessageForm()
 
@@ -118,6 +138,9 @@ def message_professor(request, professor_id):
 
 
 def thankyou(request, professor_id):
+	if request.user.is_authenticated:
+		return redirect("dashboard")
+
 	context = {
 		"professor_id" : professor_id
 	}
@@ -128,7 +151,12 @@ def dashboard(request):
 	if request.user.is_anonymous:
 		return redirect('login')
 
-	return render(request, 'dashboard.html')
+	liked = request.user.like_set.all().values_list('message', flat=True)
+	context = {
+		"liked_messages" : liked
+	}
+
+	return render(request, 'dashboard.html', context)
 
 def delete_message(request, message_id):
 	if request.user.is_anonymous:
@@ -148,6 +176,7 @@ def likeMessage(request, message_id):
 	if created:
 		action = "like"
 	else:
+		like.delete()
 		action = "unlike"
 
 	response = {
@@ -179,5 +208,7 @@ def update_profile(request):
 	}
 
 	return render(request, 'updateprofile.html', context)
+
+
 
 

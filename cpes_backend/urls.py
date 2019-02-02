@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from GulleApp.views import (Login, Logout,likeMessage, Signup, no_access, delete_message,professors_list, message_professor, thankyou, dashboard, update_profile)
+from GulleApp.views import (Login, Logout,likeMessage, Signup, no_access,liked_messages, delete_message,professors_list, message_professor, thankyou, dashboard, update_profile)
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -12,9 +12,10 @@ urlpatterns = [
     path('<int:professor_id>/thankyou/', thankyou, name="thank-you"),
 
     path('dashboard/', dashboard, name="dashboard"),
-    path('message/<int:id>/like/', likeMessage, name="like"),
+    path('message/<int:message_id>/like/', likeMessage, name="like"),
     path('profile/update/', update_profile, name="update-profile"),
     path('message/delete/<int:message_id>/', delete_message, name="message-delete"),
+    path("messages/liked/", liked_messages, name="liked-messages"),
 
 
     path('signup/', Signup.as_view(), name='signup'),
