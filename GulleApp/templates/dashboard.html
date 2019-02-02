@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{%  block content %}
+<br>
+<br><br><br><br><br><br>
+yguygi
+{% for message in user.message_set.all %}
+	{{message.title}}
+	<button onclick="like_message({{message.id}})" id="#message-{{message.id}}" class="text-danger">iugiuhiuhiuhiuh</button>
+	
+	
+{% endfor %}
+
+
+<script type="text/javascript">
+	function like_message(id){
+		$.ajax(
+			{
+				type: 'GET',
+				url: '/message/'+id+'/like/'
+				error: function(){
+					console.log('error')
+				},
+				success: function(data){
+					let message_id = '#message-' + id;
+					if (data.action ==="like"){
+						$(message_id).addClass("text-danger")
+					}else{
+						$(message_id).removeClass("text-danger")
+					}
+				}
+				
+			}
+		)
+	}
+</script>
+
+{% endblock %}

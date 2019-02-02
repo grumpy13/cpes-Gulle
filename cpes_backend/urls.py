@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from GulleApp.views import (Login, Logout, Signup, no_access, professors_list, message_professor, thankyou, dashboard)
+from GulleApp.views import (Login, Logout,likeMessage, Signup, no_access, professors_list, message_professor, thankyou, dashboard)
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -12,6 +12,7 @@ urlpatterns = [
     path('thankyou/', thankyou, name="thank-you"),
 
     path('dashboard/', dashboard, name="dashboard"),
+    path('message/<int:id>/like/', likeMessage, name="like"),
 
 
     path('signup/', Signup.as_view(), name='signup'),

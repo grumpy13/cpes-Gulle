@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.views import View
 from .forms import UserSignup, UserLogin, UserForm, MessageForm
 from django.contrib import messages
-from .models import (Message,)
+from .models import (Message, Like)
 from django.db.models import Q
 from django.utils import timezone
 from django.contrib.auth.models import User
@@ -125,7 +125,30 @@ def thankyou(request, professor_id):
 
 
 def dashboard(request):
-	return render(request, 'thankyou.html')
+	if request.user.is_anonymous:
+		return redirect('login')
+
+	return render(request, 'dashboard.html')
+
+
+def likeMessage(request, message_id):
+	if request.user.is_anonymous:
+		return redirect('login')
+
+	message = Message.objects.get(id=message_id)
+	like, created = Like.objects.get_or_create(professor=request.user, message=message)
+
+	if created:
+		action = "like"
+	else:
+		action = "unlike"
+
+	response = {
+		"action" : action
+	}
+
+	return JsonResponse(response, safe=False)
+
 
 
 

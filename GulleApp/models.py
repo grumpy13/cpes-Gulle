@@ -13,3 +13,7 @@ class Message(models.Model):
 	def __str__(self):
 		return self.title
 
+class Like(models.Model):
+	professor = models.ForeignKey(User, on_delete=models.CASCADE)
+	message = models.ForeignKey(Message, on_delete=models.CASCADE)
+
