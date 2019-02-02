@@ -9,7 +9,7 @@ urlpatterns = [
 
     path('', professors_list, name='home'),
     path('sendmessage/<int:professor_id>/', message_professor, name="send-message"),
-    path('thankyou/', thankyou, name="thank-you"),
+    path('<int:professor_id>/thankyou/', thankyou, name="thank-you"),
 
     path('dashboard/', dashboard, name="dashboard"),
     path('message/<int:id>/like/', likeMessage, name="like"),
