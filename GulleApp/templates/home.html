@@ -28,7 +28,7 @@
                   <p class="card-text">
                     {{professor.first_name}} {{professor.last_name}}
                   </p>
-                <div class="btn btn-success">Send Message</div>
+                <a class="btn btn-success" href="{% url 'send-message' professor.id %}" >Send Message</a>
               </div>
           </div>
         </div>

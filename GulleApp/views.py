@@ -52,7 +52,7 @@ class Login(View):
 			if auth_user is not None:
 				login(request, auth_user)
 				messages.success(request, "Welcome Back! " +request.user.username)
-				return redirect('home') 
+				return redirect('home')
 			messages.warning(request, "Wrong email/password combination. Please try again.")
 			return redirect("login")
 		messages.warning(request, form.errors)
@@ -107,7 +107,7 @@ def message_professor(request, professor_id):
 			message.teacher = professor
 			message.save()
 
-			return redirect("thank-you")
+			return redirect("thank-you", professor.id)
 
 	context = {
 		"form" : form,
@@ -149,7 +149,6 @@ def likeMessage(request, message_id):
 
 	return JsonResponse(response, safe=False)
 
-
 def liked_messages(request):
 	if request.user.is_anonymous:
 		return redirect('login')
@@ -173,13 +172,5 @@ def update_profile(request):
 	}
 
 	return render(request, 'updateprofile.html', context)
-
-
-
-
-
-
-
-
 
 
