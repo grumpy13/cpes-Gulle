@@ -130,6 +130,13 @@ def dashboard(request):
 
 	return render(request, 'dashboard.html')
 
+def delete_message(request, message_id):
+	if request.user.is_anonymous:
+		return redirect('login')
+		
+	Message.objects.get(id=message_id).delete()
+	return redirect("dashboard")
+
 
 def likeMessage(request, message_id):
 	if request.user.is_anonymous:
