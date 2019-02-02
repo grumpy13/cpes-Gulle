@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.views import View
-from .forms import UserSignup, UserLogin, UserForm
+from .forms import UserSignup, UserLogin, UserForm, MessageForm
 from django.contrib import messages
 from .models import (Message,)
 from django.db.models import Q
@@ -95,5 +95,40 @@ def professors_list(request):
 	}
 
 	return render(request, 'home.html', context)
+
+def message_professor(request, professor_id):
+	professor = User.objects.get(id=professor_id)
+	form = MessageForm()
+
+	if request.method == 'POST':
+		form = MessageForm(request.POST)
+		if form.is_valid():
+			message = form.save(commit=False)
+			message.teacher = professor
+			message.save()
+
+			return redirect("thank-you")
+
+	context = {
+		"form" : form,
+		"professor" : professor
+	}
+
+	return render(request, 'sendmessage.html', context)
+
+
+def thankyou(request, professor_id):
+	context = {
+		"professor_id" : professor_id
+	}
+	return render(request, 'thankyou.html', context)
+
+
+def dashboard(request):
+	return render(request, 'thankyou.html')
+
+
+
+
 
 
