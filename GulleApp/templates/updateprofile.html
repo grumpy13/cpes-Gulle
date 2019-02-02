@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
-{% block title %}Login{% endblock title %}
+{% block title %}Update Profile{% endblock title %}
 
 {% block content %}
 
@@ -9,7 +9,7 @@
     <div class="container">
         <div class="jumbotron  mt-5" style="background-color: black;">
           <h2 class="masthead-subheading mb-0">Update Profile</h2>
-          <form action="{% url 'updateprofile' %}" method="POST">
+          <form action="{% url 'update-profile' %}" method="POST">
             {% csrf_token %}
             {{form|crispy}}
             <input class = "btn btn-success" type="submit" value="Login">
