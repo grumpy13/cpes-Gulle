@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Begin page content -->
+<section class="container-fluid mt-1 p-5 text-white h-100 bg-dark">
+
+<h1 class="mt-3">Send a Message!</h1>
+</section>
+<main role="main" class="container">
+  <form class="form-inline ">
+    <input class="form-control mr-sm-2 d-flex " type="text" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
+
+<section class="container-fluid mt-1 p-5 text-white">
+  <div class="card">
+    <h1 class="mt-3">To: Username!</h1>
+    <p> first_name last_name </p>
+    <form action="{% url 'sendmessage' %}" method="POST">
+      {% csrf_token %}
+      {{form|crispy}}
+      <input class = "btn btn-primary btn-xl rounded-pill mt-5" type="submit" value="Login">
+    </form>
+
+    </div>
+</section>
+
+
+</main>
+
+
+{% endblock %}
