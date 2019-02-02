@@ -148,3 +148,29 @@ def likeMessage(request, message_id):
 	}
 
 	return JsonResponse(response, safe=False)
+
+def liked_messages(request):
+	if request.user.is_anonymous:
+		return redirect('login')
+
+	return render(request, 'fav.html')
+
+
+def update_profile(request):
+	if request.user.is_anonymous:
+		return redirect('login')
+
+	form = UserForm()
+	if request.method == 'POST':
+		form = UserForm(request.POST)
+		if form.is_valid:
+			form.save()
+			return redirect('dashboard')
+
+	context = {
+		"form" : form
+	}
+
+	return render(request, 'updateprofile.html', context)
+
+
