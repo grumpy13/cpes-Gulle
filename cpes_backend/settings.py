@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'GulleApp',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -39,6 +40,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'cpes_backend.urls'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 TEMPLATES = [
     {
