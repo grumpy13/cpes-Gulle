@@ -1,21 +1,39 @@
 {% extends "base.html" %}
+
 {% block content %}
-<div class=" text-center text-white" style=" background: transparent;">
-    
- 
-    <div class="container-responsive">
-      <h1 >All the messages,</h1>
-      <h2 >You ever got...</h2>
-      
-      <br>
-      {% if request.user.is_anonymous %}
-        <a href="{% url 'signup' %}" class="btn btn-primary btn-xl rounded-pill mt-5">Sign up to read your messages!</a>
-      
-      {% endif %}
 
-    </div>
-</div>
+<!-- Begin page content -->
 
-{{professors}}
+<main role="main" class="container">
+  <section class="container-fluid mt-1 p-5 text-white h-100 bg-dark">
+
+  <h1 class="mt-3">Welcome to Gullee!</h1>
+
+  <p class="lead">You can leave your feedbacks or nice messages to your professors here! <br> You can find your teacher here bellow, or try to search for them.</p>
+  <form class="form-inline mt-2 ">
+    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
+</section>
+
+<section class="container-fluid mt-1 p-5 text-white">
+  <div class="card-group">
+      <div class="col-lg-4 col-md-6 col-12 ">
+          <div class="cardtext-white bg-dark" style="max-width: 18rem;">
+              <div class="card-body">
+                  <h3 class="card-title"> Professor </h3>
+                  <hr class="m-2">
+                  <p class="card-text"></p>
+                  <hr>
+              </div>
+          </div>
+        </div>
+          
+      </div>
+</section>
+
+
+</main>
+
 
 {% endblock %}
